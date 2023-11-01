@@ -38,7 +38,7 @@
       }
     
       return tokens;
-    }   
+    } 
   
   // Create windows from the processed text
   function createWindows(processedText, windowSize) {
@@ -80,17 +80,21 @@
       }
       return fingerprints;
   }
+    let same_fingerprint = 0;
 
     // Detect plagiarism by comparing the fingerprints
-function detectPlagiarism(fingerprints1, fingerprints2) {
-const counter = 0;
-for (let fingerprint of fingerprints1) {
-if (fingerprints2.has(fingerprint)) {
-    return true;
-}
-}
-return false;
-}
+    function detectPlagiarism(fingerprints1, fingerprints2) {
+    const counter = 0;
+    same_fingerprint = 0;
+    for (let fingerprint of fingerprints1) {
+    if (fingerprints2.has(fingerprint)) {
+        same_fingerprint = fingerprint;
+        return true;
+    }
+    }
+    return false;
+    }
+
 
   function runPlagiarismDetection() {
     // Get the input text from the textboxes
@@ -124,13 +128,10 @@ return false;
     // Get the fingerprints
     let fingerprints1 = getFingerprints(hashes1);
     let fingerprints2 = getFingerprints(hashes2);
-    const fg1 = JSON.stringify([...fingerprints1]).substring(0, 40);
-    const fg2 = JSON.stringify([...fingerprints2]).substring(0, 40);
-    document.getElementById("fg1").innerText = fg1;
-    document.getElementById("fg2").innerText = fg2;
 
     // Detect plagiarism
     let isPlagiarized = detectPlagiarism(fingerprints1, fingerprints2);
+    document.getElementById("fg").innerText = same_fingerprint == 0 ? "未找到" : same_fingerprint;
 
 // Display the result
     document.getElementById("result").innerText = isPlagiarized ? "高" : "低";
@@ -150,8 +151,8 @@ return false;
             <h3 class="title-main-cont">相似性检测器</h3>
             <p class="sub-title-cont">这是一个基于<a href="https://haozheli.notion.site/Using-WINNOWING-Algorithm-to-detect-text-similarity-6a7648cfd3df4dcfac6fb2150e780c02?pvs=4">WINNOWING算法</a>的简单文本相似性检测器。检测结果是通过前端的 javascript 比较文本指纹得到的，因此网站不会存储任何记录或数据。请放心使用！</p>
             <a href="index.html">English</a> | 中文
-            <textarea id="text1" rows="10" cols="200" placeholder="在此输入您的第一个文本"></textarea>
-            <textarea id="text2" rows="10" cols="200" placeholder="在此输入您的第二个文本"></textarea>
+            <textarea id="text1" rows="10" cols="200" placeholder="在此输入您的第一个文本，目前只支持英文和中文"></textarea>
+            <textarea id="text2" rows="10" cols="200" placeholder="在此输入您的第二个文本，目前只支持英文和中文"></textarea>
 
             <div class="text-right">
               <button onclick="runPlagiarismDetection()" class="btn btn-contact">开始检测</button>
@@ -173,12 +174,8 @@ return false;
                 <p id="windowsize">用于检测的窗口大小：会是一个1到100以内的数字。</p>
               </div>
               <div class="cont-add">
-                <h4>文本指纹 1：</h4>
-                <p id="fg1">第一个文本的指纹预览：会是一个哈希值列表。</p>
-              </div>
-              <div class="cont-add">
-                <h4>文本指纹 2：</h4>
-                <p id="fg2">第二个文本的指纹预览：会是一个哈希值列表。</p>
+                <h4>指纹: </h4>
+                <p id="fg">检测到的第一个相同指纹：无穷大表示数值太大，无法显示。</p>
               </div>
             </div>
           </div>

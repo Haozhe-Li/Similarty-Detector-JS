@@ -80,17 +80,21 @@
       }
       return fingerprints;
   }
+    let same_fingerprint = 0;
 
     // Detect plagiarism by comparing the fingerprints
-function detectPlagiarism(fingerprints1, fingerprints2) {
-const counter = 0;
-for (let fingerprint of fingerprints1) {
-if (fingerprints2.has(fingerprint)) {
-    return true;
-}
-}
-return false;
-}
+    function detectPlagiarism(fingerprints1, fingerprints2) {
+    const counter = 0;
+    same_fingerprint = 0;
+    for (let fingerprint of fingerprints1) {
+    if (fingerprints2.has(fingerprint)) {
+        same_fingerprint = fingerprint;
+        return true;
+    }
+    }
+    return false;
+    }
+
 
   function runPlagiarismDetection() {
     // Get the input text from the textboxes
@@ -124,13 +128,10 @@ return false;
     // Get the fingerprints
     let fingerprints1 = getFingerprints(hashes1);
     let fingerprints2 = getFingerprints(hashes2);
-    const fg1 = JSON.stringify([...fingerprints1]).substring(0, 40);
-    const fg2 = JSON.stringify([...fingerprints2]).substring(0, 40);
-    document.getElementById("fg1").innerText = fg1;
-    document.getElementById("fg2").innerText = fg2;
 
     // Detect plagiarism
     let isPlagiarized = detectPlagiarism(fingerprints1, fingerprints2);
+    document.getElementById("fg").innerText = same_fingerprint == 0 ? "Not Found" : same_fingerprint;
 
 // Display the result
     document.getElementById("result").innerText = isPlagiarized ? "High" : "Low";
@@ -150,8 +151,8 @@ return false;
             <h3 class="title-main-cont">Similarity Detector</h3>
             <p class="sub-title-cont">This is a simple Text Similarity Detector that based on the <a href="https://haozheli.notion.site/Using-WINNOWING-Algorithm-to-detect-text-similarity-6a7648cfd3df4dcfac6fb2150e780c02?pvs=4">WINNOWING Algorithm</a>. The detection gets results by comparing the fingerprints of the text using javascript on the front-end, so website does not store any records or data. Feel free to play with it! </p>
             English | <a href="zh.html">中文</a>
-            <textarea id="text1" rows="10" cols="200" placeholder="Enter your first text here"></textarea>
-            <textarea id="text2" rows="10" cols="200" placeholder="Enter your second text here"></textarea>
+            <textarea id="text1" rows="10" cols="200" placeholder="Enter your first text her, currently only English and Chinese are supported"></textarea>
+            <textarea id="text2" rows="10" cols="200" placeholder="Enter your second text here, currently only English and Chinese are supported"></textarea>
 
             <div class="text-right">
               <button onclick="runPlagiarismDetection()" class="btn btn-contact">Detect Now</button>
@@ -173,13 +174,10 @@ return false;
                 <p id="windowsize">The window size to be used for detection: result will be an integer between 1 and 100.</p>
               </div>
               <div class="cont-add">
-                <h4>Fingerprints of text 1:</h4>
-                <p id="fg1">The fingerprints preview of the first text: result will be a set of hashes.</p>
+                <h4>Fingerprint: </h4>
+                <p id="fg">The first same fingerprint detected: Infinity signifies a value too large to display.</p>
               </div>
-              <div class="cont-add">
-                <h4>Fingerprints of text 2:</h4>
-                <p id="fg2">The fingerprints preview of the second text: result will be a set of hashes.</p>
-              </div>
+              
             </div>
           </div>
           <!-- //contact address -->
