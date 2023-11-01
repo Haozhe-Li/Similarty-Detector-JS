@@ -125,7 +125,7 @@ return false;
     let fingerprints1 = getFingerprints(hashes1);
     let fingerprints2 = getFingerprints(hashes2);
     const fg1 = JSON.stringify([...fingerprints1]).substring(0, 40);
-    const fg2 = JSON.stringify([...fingerprints1]).substring(0, 40);
+    const fg2 = JSON.stringify([...fingerprints2]).substring(0, 40);
     document.getElementById("fg1").innerText = fg1;
     document.getElementById("fg2").innerText = fg2;
 
