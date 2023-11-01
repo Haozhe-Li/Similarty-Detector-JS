@@ -103,7 +103,7 @@ return false;
     let processedText1 = preprocessText(text1);
     let processedText2 = preprocessText(text2);
 
-    let windowSize = text1.length < text2.length ? Math.floor(text1.length / 50) : Math.floor(text2.length / 50);
+    let windowSize = text1.length < text2.length ? Math.floor(text1.length / 10) : Math.floor(text2.length / 10);
     if (windowSize < 1) {
       windowSize = 1;
     }
