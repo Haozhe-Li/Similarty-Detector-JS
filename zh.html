@@ -26,9 +26,8 @@
         let c = rawText[i];
         
         if (/[a-zA-Z0-9]/.test(c) || /[\u4e00-\u9fa5]/.test(c)) {
-          // 如果是英文字母、数字或者中文字符
           if (/[A-Z]/.test(c)) {
-            token += c.toLowerCase(); // 将大写字母转为小写
+            token += c.toLowerCase();
           } else {
             token += c;
           }
@@ -85,20 +84,25 @@
       }
       return fingerprints;
   }
-    let same_fingerprint = 0;
+    let percentage = 0;
 
     // Detect plagiarism by comparing the fingerprints
-    function detectPlagiarism(fingerprints1, fingerprints2) {
-    const counter = 0;
-    same_fingerprint = 0;
+  function detectPlagiarism(fingerprints1, fingerprints2) {
+    let intersection = new Set([...fingerprints1].filter(x => fingerprints2.has(x)));
+    let intersectionSize = intersection.size;
+    let union = new Set([...fingerprints1, ...fingerprints2]);
+    let unionSize = union.size;
+    let similarity = intersectionSize / unionSize;
+    percentage = similarity * 100;
     for (let fingerprint of fingerprints1) {
-    if (fingerprints2.has(fingerprint)) {
-        same_fingerprint = fingerprint;
-        return true;
-    }
-    }
+      if (fingerprints2.has(fingerprint)) {
+          same_fingerprint = fingerprint;
+          return true;
+      }
+      }
     return false;
-    }
+  }
+
 
 
   function runPlagiarismDetection() {
@@ -136,7 +140,7 @@
 
     // Detect plagiarism
     let isPlagiarized = detectPlagiarism(fingerprints1, fingerprints2);
-    document.getElementById("fg").innerText = same_fingerprint == 0 ? "未找到" : same_fingerprint;
+    document.getElementById("fg").innerText = Math.floor(percentage) + "%";
 
 // Display the result
     document.getElementById("result").innerText = isPlagiarized ? "高" : "低";
@@ -179,14 +183,14 @@
                 <p id="windowsize">用于检测的窗口大小：会是一个1到100以内的数字。</p>
               </div>
               <div class="cont-add">
-                <h4>指纹 </h4>
-                <p id="fg">检测到的第一个相同指纹：无穷大表示数值太大，无法显示。</p>
+                <h4>交集百分比</h4>
+                <p id="fg">两段文本的指纹交集百分比</p>
               </div>
-              <a href="javascript:void(0);" onclick="window.location.reload();">重新开始</a>
+              <a href="zh.html">重新开始</a>
             </div>
           </div>
           <!-- //contact address -->
-          <p>版权所有<a href="https://www.haozheli.com/?locale=zh" target="_blank">李浩哲</a> 2023</p>
+          <p>版权所有 <a href="https://www.haozheli.com/?locale=zh" target="_blank">李浩哲</a> 2023</p>
         </div>
       </div>
       <!-- map -->

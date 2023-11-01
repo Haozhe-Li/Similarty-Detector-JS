@@ -86,20 +86,24 @@
       }
       return fingerprints;
   }
-    let same_fingerprint = 0;
+  let percentage = 0;
 
-    // Detect plagiarism by comparing the fingerprints
-    function detectPlagiarism(fingerprints1, fingerprints2) {
-    const counter = 0;
-    same_fingerprint = 0;
-    for (let fingerprint of fingerprints1) {
+  // Detect plagiarism by comparing the fingerprints
+function detectPlagiarism(fingerprints1, fingerprints2) {
+  let intersection = new Set([...fingerprints1].filter(x => fingerprints2.has(x)));
+  let intersectionSize = intersection.size;
+  let union = new Set([...fingerprints1, ...fingerprints2]);
+  let unionSize = union.size;
+  let similarity = intersectionSize / unionSize;
+  percentage = similarity * 100;
+  for (let fingerprint of fingerprints1) {
     if (fingerprints2.has(fingerprint)) {
         same_fingerprint = fingerprint;
         return true;
     }
     }
-    return false;
-    }
+  return false;
+}
 
 
   function runPlagiarismDetection() {
@@ -137,7 +141,7 @@
 
     // Detect plagiarism
     let isPlagiarized = detectPlagiarism(fingerprints1, fingerprints2);
-    document.getElementById("fg").innerText = same_fingerprint == 0 ? "Not Found" : same_fingerprint;
+    document.getElementById("fg").innerText = Math.floor(percentage) + "%";
 
 // Display the result
     document.getElementById("result").innerText = isPlagiarized ? "High" : "Low";
@@ -180,10 +184,10 @@
                 <p id="windowsize">The window size to be used for detection: result will be an integer between 1 and 100.</p>
               </div>
               <div class="cont-add">
-                <h4>Fingerprint</h4>
-                <p id="fg">The first same fingerprint detected: Infinity signifies a value too large to display.</p>
+                <h4>Percentage of intersection</h4>
+                <p id="fg">Percentage of fingerprints intersection between two texts.</p>
               </div>
-              <a href="javascript:void(0);" onclick="window.location.reload();">Start Over</a>
+              <a href="index.html">Start Over</a>
               
             </div>
           </div>
