@@ -13,7 +13,92 @@
   <!-- Favicons -->
   <link href="img/favicon.png" rel="icon">
   <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+  <style>
+    /* 自定义样式以美化原生下拉选择框 */
+    select {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        background-color: #fff;
+        width: 200px;
+    }
 
+    /* 自定义下拉箭头图标 */
+    select::-ms-expand {
+        display: none;
+    }
+
+    /* 样式选中项 */
+    select option:checked {
+        background-color: #007BFF;
+        color: #fff;
+    }
+
+    /* 样式鼠标悬停的选项 */
+    select option:hover {
+        background-color: #f0f0f0;
+    }
+</style>
+</head>
+
+<body>
+  <!-- contact -->
+  <section class="w3l-contact-5">
+    <div class="contact-top section-gap">
+      <div class="wrapper">
+        <div class="d-grid cont-main-top">
+          <!-- contact form -->
+          <div class="contacts12-main">
+            <h3 class="title-main-cont">Similarity Detector</h3>
+            <p class="sub-title-cont">This is a simple Text Similarity Detector that based on the <a href="https://haozheli.notion.site/Using-WINNOWING-Algorithm-to-detect-text-similarity-6a7648cfd3df4dcfac6fb2150e780c02?pvs=4">WINNOWING Algorithm</a>. The detection gets results by comparing the fingerprints of the text using javascript on the front-end, so website does not store any records or data. Feel free to play with it! </p>
+            English | <a href="zh.html">中文</a> | <a href="https://haozheli.notion.site/Using-WINNOWING-Algorithm-to-detect-text-similarity-6a7648cfd3df4dcfac6fb2150e780c02?pvs=4">About 关于</a>
+            <textarea id="text1" rows="10" cols="200" placeholder="Enter your first text here, currently only English is supported"></textarea>
+            <textarea id="text2" rows="10" cols="200" placeholder="Enter your second text here, currently only English is supported"></textarea>
+
+            <div class="text-center">
+              Please choose your model: 
+              <select id="sensitivity">
+                <option value="0">Strict</option>
+                <option value="4" selected>Default</option>
+                <option value="10">Loose</option>
+              </select>
+              <br><br>
+              <button onclick="runPlagiarismDetection()" class="btn btn-contact">Detect Now</button>
+            </div>
+          </div>
+          <!-- //contact form -->
+          <!-- contact address -->
+          <div class="contact">
+            <div class="cont-subs">
+              <div class="cont-add">
+                <h1>Result</h1>
+              </div>
+              <div class="cont-add">
+                <h4>Is plagiarized</h4>
+                <p id="result">If plagiarism present</p>
+              </div>
+              <div class="cont-add">
+                <h4>Window Size</h4>
+                <p id="windowsize">The window size to be used for detection.</p>
+              </div>
+              <div class="cont-add">
+                <h4>Similarity</h4>
+                <p id="fg">Percentage of fingerprints intersection between two texts.</p>
+              </div>
+              <a href="index.html">Start Over</a>
+              
+            </div>
+          </div>
+          <!-- //contact address -->
+          <p>Copyright <a href="https://www.haozheli.com" target="_blank">Haozhe Li</a> 2023</p>
+        </div>
+      </div>
+      <!-- map -->
+      <!-- //map -->
+    </div>
+  </section>
+  <!-- //contact -->
   <script>
     // JavaScript code goes here
     // ...
@@ -86,6 +171,7 @@
     }
     return fingerprints;
 }
+
   let percentage = 0;
   const sensitivitySelect = document.getElementById('sensitivity');
   let sensitivity = 4;
@@ -148,65 +234,6 @@ function detectPlagiarism(fingerprints1, fingerprints2) {
   }
   
   </script>
-</head>
-
-<body>
-  <!-- contact -->
-  <section class="w3l-contact-5">
-    <div class="contact-top section-gap">
-      <div class="wrapper">
-        <div class="d-grid cont-main-top">
-          <!-- contact form -->
-          <div class="contacts12-main">
-            <h3 class="title-main-cont">Similarity Detector</h3>
-            <p class="sub-title-cont">This is a simple Text Similarity Detector that based on the <a href="https://haozheli.notion.site/Using-WINNOWING-Algorithm-to-detect-text-similarity-6a7648cfd3df4dcfac6fb2150e780c02?pvs=4">WINNOWING Algorithm</a>. The detection gets results by comparing the fingerprints of the text using javascript on the front-end, so website does not store any records or data. Feel free to play with it! </p>
-            English | <a href="zh.html">中文</a> | <a href="https://haozheli.notion.site/Using-WINNOWING-Algorithm-to-detect-text-similarity-6a7648cfd3df4dcfac6fb2150e780c02?pvs=4">About 关于</a>
-            <textarea id="text1" rows="10" cols="200" placeholder="Enter your first text her, currently only English and Chinese are supported"></textarea>
-            <textarea id="text2" rows="10" cols="200" placeholder="Enter your second text here, currently only English and Chinese are supported"></textarea>
-
-            <div class="text-center">
-              Please choose your detection sensitivity: 
-              <select id="sensitivity">
-                <option value="0">High: extremely sensitive, but prone to false alarms</option>
-                <option value="4" selected>Default: performance balanced</option>
-                <option value="10">Low: less prone to false alarms</option>
-              </select>
-              <br><br>
-              <button onclick="runPlagiarismDetection()" class="btn btn-contact">Detect Now</button>
-            </div>
-          </div>
-          <!-- //contact form -->
-          <!-- contact address -->
-          <div class="contact">
-            <div class="cont-subs">
-              <div class="cont-add">
-                <h1>Result</h1>
-              </div>
-              <div class="cont-add">
-                <h4>Is plagiarized</h4>
-                <p id="result">If plagiarism present</p>
-              </div>
-              <div class="cont-add">
-                <h4>Window Size</h4>
-                <p id="windowsize">The window size to be used for detection.</p>
-              </div>
-              <div class="cont-add">
-                <h4>Similarity</h4>
-                <p id="fg">Percentage of fingerprints intersection between two texts.</p>
-              </div>
-              <a href="index.html">Start Over</a>
-              
-            </div>
-          </div>
-          <!-- //contact address -->
-          <p>Copyright <a href="https://www.haozheli.com" target="_blank">Haozhe Li</a> 2023</p>
-        </div>
-      </div>
-      <!-- map -->
-      <!-- //map -->
-    </div>
-  </section>
-  <!-- //contact -->
 </body>
 
 </html>
