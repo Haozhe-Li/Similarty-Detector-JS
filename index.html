@@ -80,13 +80,19 @@
   
   // Get the fingerprints from the hashes
   function getFingerprints(hashes) {
-      let fingerprints = new Set();
-      for (let i = 0; i < hashes.length; i++) {
-      fingerprints.add(hashes[i]);
-      }
-      return fingerprints;
-  }
+    let fingerprints = new Set();
+    for (let i = 0; i < hashes.length; i++) {
+    fingerprints.add(hashes[i]);
+    }
+    return fingerprints;
+}
   let percentage = 0;
+  const sensitivitySelect = document.getElementById('sensitivity');
+  let sensitivity = 4;
+  sensitivitySelect.addEventListener('change', function () {
+      const selectedValue = sensitivitySelect.value;
+      sensitivity = parseInt(selectedValue);
+  });
 
   // Detect plagiarism by comparing the fingerprints
 function detectPlagiarism(fingerprints1, fingerprints2) {
@@ -96,13 +102,7 @@ function detectPlagiarism(fingerprints1, fingerprints2) {
   let unionSize = union.size;
   let similarity = intersectionSize / unionSize;
   percentage = similarity * 100;
-  for (let fingerprint of fingerprints1) {
-    if (fingerprints2.has(fingerprint)) {
-        same_fingerprint = fingerprint;
-        return true;
-    }
-    }
-  return false;
+  return percentage > sensitivity;
 }
 
 
@@ -144,7 +144,7 @@ function detectPlagiarism(fingerprints1, fingerprints2) {
     document.getElementById("fg").innerText = Math.floor(percentage) + "%";
 
 // Display the result
-    document.getElementById("result").innerText = isPlagiarized ? "High" : "Low";
+    document.getElementById("result").innerText = isPlagiarized ? "Yes" : "No";
   }
   
   </script>
@@ -160,11 +160,18 @@ function detectPlagiarism(fingerprints1, fingerprints2) {
           <div class="contacts12-main">
             <h3 class="title-main-cont">Similarity Detector</h3>
             <p class="sub-title-cont">This is a simple Text Similarity Detector that based on the <a href="https://haozheli.notion.site/Using-WINNOWING-Algorithm-to-detect-text-similarity-6a7648cfd3df4dcfac6fb2150e780c02?pvs=4">WINNOWING Algorithm</a>. The detection gets results by comparing the fingerprints of the text using javascript on the front-end, so website does not store any records or data. Feel free to play with it! </p>
-            English | <a href="zh.html">中文</a>
+            English | <a href="zh.html">中文</a> | <a href="https://haozheli.notion.site/Using-WINNOWING-Algorithm-to-detect-text-similarity-6a7648cfd3df4dcfac6fb2150e780c02?pvs=4">About 关于</a>
             <textarea id="text1" rows="10" cols="200" placeholder="Enter your first text her, currently only English and Chinese are supported"></textarea>
             <textarea id="text2" rows="10" cols="200" placeholder="Enter your second text here, currently only English and Chinese are supported"></textarea>
 
             <div class="text-right">
+              Please choose your detection sensitivity: 
+              <select id="sensitivity">
+                <option value="0">High: extremely sensitive, but prone to false alarms</option>
+                <option value="4" selected>Default: performance balanced</option>
+                <option value="10">Low: less prone to false alarms</option>
+              </select>
+              <br><br>
               <button onclick="runPlagiarismDetection()" class="btn btn-contact">Detect Now</button>
             </div>
           </div>
@@ -176,15 +183,15 @@ function detectPlagiarism(fingerprints1, fingerprints2) {
                 <h1>Result</h1>
               </div>
               <div class="cont-add">
-                <h4>Similarity</h4>
-                <p id="result">The similarity between two texts. This will have two results: high or low.</p>
+                <h4>Is plagiarized</h4>
+                <p id="result">If plagiarism present</p>
               </div>
               <div class="cont-add">
                 <h4>Window Size</h4>
-                <p id="windowsize">The window size to be used for detection: result will be an integer between 1 and 100.</p>
+                <p id="windowsize">The window size to be used for detection.</p>
               </div>
               <div class="cont-add">
-                <h4>Percentage of intersection</h4>
+                <h4>Similarity</h4>
                 <p id="fg">Percentage of fingerprints intersection between two texts.</p>
               </div>
               <a href="index.html">Start Over</a>

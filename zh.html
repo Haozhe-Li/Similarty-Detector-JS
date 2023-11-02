@@ -85,6 +85,12 @@
       return fingerprints;
   }
     let percentage = 0;
+    const sensitivitySelect = document.getElementById('sensitivity');
+    let sensitivity = 4;
+    sensitivitySelect.addEventListener('change', function () {
+        const selectedValue = sensitivitySelect.value;
+        sensitivity = parseInt(selectedValue);
+    });
 
     // Detect plagiarism by comparing the fingerprints
   function detectPlagiarism(fingerprints1, fingerprints2) {
@@ -94,13 +100,7 @@
     let unionSize = union.size;
     let similarity = intersectionSize / unionSize;
     percentage = similarity * 100;
-    for (let fingerprint of fingerprints1) {
-      if (fingerprints2.has(fingerprint)) {
-          same_fingerprint = fingerprint;
-          return true;
-      }
-      }
-    return false;
+    return percentage > sensitivity;
   }
 
 
@@ -143,7 +143,7 @@
     document.getElementById("fg").innerText = Math.floor(percentage) + "%";
 
 // Display the result
-    document.getElementById("result").innerText = isPlagiarized ? "高" : "低";
+    document.getElementById("result").innerText = isPlagiarized ? "存在" : "不存在";
   }
   
   </script>
@@ -159,11 +159,17 @@
           <div class="contacts12-main">
             <h3 class="title-main-cont">相似性检测器</h3>
             <p class="sub-title-cont">这是一个基于<a href="https://haozheli.notion.site/Using-WINNOWING-Algorithm-to-detect-text-similarity-6a7648cfd3df4dcfac6fb2150e780c02?pvs=4">WINNOWING算法</a>的简单文本相似性检测器。检测结果是通过前端的 javascript 比较文本指纹得到的，因此网站不会存储任何记录或数据。请放心使用！</p>
-            <a href="index.html">English</a> | 中文
+            <a href="index.html">English</a> | 中文 | <a href="https://haozheli.notion.site/Using-WINNOWING-Algorithm-to-detect-text-similarity-6a7648cfd3df4dcfac6fb2150e780c02?pvs=4">About 关于</a>
             <textarea id="text1" rows="10" cols="200" placeholder="在此输入您的第一个文本，目前只支持英文和中文"></textarea>
             <textarea id="text2" rows="10" cols="200" placeholder="在此输入您的第二个文本，目前只支持英文和中文"></textarea>
-
             <div class="text-right">
+                请选择检测灵敏度：
+              <select id="sensitivity">
+                <option value="0">高：极灵敏，但是容易误报</option>
+                <option value="4" selected>默认：性能平衡</option>
+                <option value="10">低：不易误报</option>
+              </select>
+              <br><br>
               <button onclick="runPlagiarismDetection()" class="btn btn-contact">开始检测</button>
             </div>
           </div>
@@ -175,15 +181,15 @@
                 <h1>结果</h1>
               </div>
               <div class="cont-add">
-                <h4>相似性</h4>
-                <p id="result">两个文本之间的相似度。这将产生两种结果：高或低。</p>
+                <h4>抄袭</h4>
+                <p id="result">是否存在抄袭</p>
               </div>
               <div class="cont-add">
                 <h4>窗口大小</h4>
-                <p id="windowsize">用于检测的窗口大小：会是一个1到100以内的数字。</p>
+                <p id="windowsize">用于检测的窗口大小</p>
               </div>
               <div class="cont-add">
-                <h4>交集百分比</h4>
+                <h4>相似性</h4>
                 <p id="fg">两段文本的指纹交集百分比</p>
               </div>
               <a href="zh.html">重新开始</a>
