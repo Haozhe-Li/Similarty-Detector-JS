@@ -64,7 +64,7 @@
                 <option value="10">Loose</option>
               </select>
               <br><br>
-              <button onclick="runPlagiarismDetection()" class="btn btn-contact">Detect Now</button>
+              <button onclick="runPlagiarismDetection()" class="btn btn-contact" id="myButton">Detect Now</button>
             </div>
           </div>
           <!-- //contact form -->
@@ -87,7 +87,7 @@
                 <p id="fg">Percentage of fingerprints intersection between two texts.</p>
               </div>
               <div class="cont-add">
-                <a href="index.html">Start Over</a>
+                <a href="zh.html" id="myLink">Start Over</a>
               </div>
               
             </div>
@@ -235,6 +235,20 @@ function detectPlagiarism(fingerprints1, fingerprints2) {
     document.getElementById("result").innerText = isPlagiarized ? "Yes" : "No";
   }
   
+  </script>
+  <!--Confirm code-->
+  <script>
+    const myLink = document.getElementById('myLink');
+    myLink.addEventListener('click', function (event) {
+        event.preventDefault();
+        const confirmed = confirm("Sure you want to start over?");
+        if (confirmed) {
+            window.location.href = myLink.getAttribute('href');
+        }
+    });
+      myButton.addEventListener('click', function () {
+        alert("Test results have been generated.");
+    });
   </script>
 </body>
 
