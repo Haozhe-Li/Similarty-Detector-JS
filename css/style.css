@@ -325,3 +325,39 @@ textarea {
     margin: 3em 0;
   }
 }
+
+select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #fff;
+  width: 200px;
+}
+
+/* 自定义下拉箭头图标 */
+select::-ms-expand {
+  display: none;
+}
+
+/* 样式选中项 */
+select option:checked {
+  background-color: #371777;
+  color: #fff;
+}
+
+/* 样式鼠标悬停的选项 */
+select option:hover {
+  background-color: #260c5a;
+}
+
+/* 默认链接样式 */
+a {
+color: #371777;
+text-decoration: none;
+}
+
+a:hover {
+color: #260c5a;
+text-decoration: underline;
+}
