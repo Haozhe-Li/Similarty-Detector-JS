@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Similarity Detector</title>
-  <meta content="A online text similarity detector" name="description">
-  <meta content="text similarity, similarity detector, similarity detection, plagiarism detection" name="keywords">
+  <title>類似性検出器</title>
+  <meta content="オンラインテキスト類似性検出器" name="description">
+  <meta content="テキスト類似性、類似性検出、剽窃検出、盗用検出" name="keywords">
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/style.css">
@@ -32,14 +32,13 @@
         <div class="d-grid cont-main-top">
           <!-- contact form -->
           <div class="contacts12-main">
-            <h3 class="title-main-cont">Similarity Detector</h3>
-            <p class="sub-title-cont">This is a simple Text Similarity Detector that based on the <a href="https://dl.acm.org/doi/10.1145/872757.872770">WINNOWING Algorithm</a>. The detection gets results by comparing the fingerprints of the text using javascript on the front-end, so website does not store any records or data. Feel free to play with it! </p>
-            English | <a href="zh.html">中文</a> | <a href="ja.html">日本語</a> | <a href="https://haozheli.notion.site/Using-WINNOWING-Algorithm-to-detect-text-similarity-6a7648cfd3df4dcfac6fb2150e780c02?pvs=4">ABOUT</a>
-            <textarea id="text1" rows="10" cols="200" placeholder="Enter your first text here, currently only English is supported"></textarea>
-            <textarea id="text2" rows="10" cols="200" placeholder="Enter your second text here, currently only English is supported"></textarea>
-
+            <h3 class="title-main-cont">類似性検出器</h3>
+            <p class="sub-title-cont" >これは、<a href="https://dl.acm.org/doi/10.1145/872757.872770">ダイスアルゴリズム</a>に基づくシンプルなテキストの類似性検出器です。検出結果はフロントエンドのJavaScriptでテキストの指紋を比較して得られますので、ウェブサイトは何も記録やデータを保存しません。安心してご利用ください！</p>
+            <a href="index.html">English</a> | <a href="zh.html">中文</a> | 日本語 | <a href="https://haozheli.notion.site/Using-WINNOWING-Algorithm-to-detect-text-similarity-6a7648cfd3df4dcfac6fb2150e780c02?pvs=4">ABOUT</a>
+            <textarea id="text1" rows="10" cols="200" placeholder="ここに第1のテキストを入力してください。現在、英語のみがサポートされています。"></textarea>
+            <textarea id="text2" rows="10" cols="200" placeholder="ここに第2のテキストを入力してください。現在、英語のみがサポートされています。"></textarea>
             <div class="text-center">
-              <label for="sensitivity">Please choose a model: </label> 
+              <label for="sensitivity">モデルを選択してください：</label>
               <select id="sensitivity">
                 <option value="0">Strict</option>
                 <option value="4" selected>Default</option>
@@ -54,42 +53,40 @@
           <div class="contact">
             <div class="cont-subs">
               <div class="cont-add">
-                <h4>Is plagiarized</h4>
-                <p id="result">If plagiarism present</p>
+                <h4>盗作</h4>
+                <p id="result">盗作の有無</p>
               </div>
               <div class="cont-add">
                 <h4>Window Size</h4>
-                <p id="windowsize">The window size to be used for detection.</p>
+                <p id="windowsize">検出に使用されるウィンドウのサイズ</p>
               </div>
               <div class="cont-add">
-                <h4>Similarity</h4>
-                <p id="fg">Percentage of fingerprints intersection between two texts.</p>
+                <h4>類似性</h4>
+                <p id="fg">2つのテキストの指紋の交差率</p>
               </div>
-              <a href="index.html" id="myLink">Start Over</a>
-              
+              <a href="ja.html" id="myLink">Start Over</a>
             </div>
           </div>
           <!-- //contact address -->
-          <p>&copy 2023 <a href="https://www.haozheli.com" target="_blank">Haozhe Li</a>. All rights reserved</p>
-        </div>
+          <p>&copy 2023 <a href="https://www.haozheli.com" target="_blank">Haozhe Li</a>. 全著作権所有</p>
       </div>
       <!-- map -->
       <!-- //map -->
     </div>
   </section>
-  <!-- //contact -->
+
   <!--Confirm code-->
   <script>
     const myLink = document.getElementById('myLink');
     myLink.addEventListener('click', function (event) {
         event.preventDefault();
-        const confirmed = confirm("Sure you want to start over?");
+        const confirmed = confirm("スタートオーバーしますか？");
         if (confirmed) {
             window.location.href = myLink.getAttribute('href');
         }
     });
       myButton.addEventListener('click', function () {
-        alert("Test results have been generated.");
+        alert("テスト結果は正常に生成された。");
     });
   </script>
 </body>

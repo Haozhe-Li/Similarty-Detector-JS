@@ -1,6 +1,12 @@
 // JavaScript code goes here
 // ...
-
+var currentURL = window.location.href;
+var language = 'en';
+if (currentURL.includes(zh.html)) {
+  language = 'zh';
+} else if (currentURL.includes(ja.html)) {
+  language = 'ja';
+}
 // Preprocess the text: tokenize and convert to lowercase
 function preprocessText(rawText) {
   let tokens = [];
@@ -10,9 +16,8 @@ function preprocessText(rawText) {
     let c = rawText[i];
     
     if (/[a-zA-Z0-9]/.test(c) || /[\u4e00-\u9fa5]/.test(c)) {
-      // 如果是英文字母、数字或者中文字符
       if (/[A-Z]/.test(c)) {
-        token += c.toLowerCase(); // 将大写字母转为小写
+        token += c.toLowerCase();
       } else {
         token += c;
       }
@@ -100,42 +105,59 @@ return percentage > sensitivity;
 
 
 function runPlagiarismDetection() {
-// Get the input text from the textboxes
-let text1 = document.getElementById("text1").value;
-let text2 = document.getElementById("text2").value;
-//document.getElementById("size1").innerText = text1.length;
-//document.getElementById("size2").innerText = text2.length;
+  // Get the input text from the textboxes
+  let text1 = document.getElementById("text1").value;
+  let text2 = document.getElementById("text2").value;
+  //document.getElementById("size1").innerText = text1.length;
+  //document.getElementById("size2").innerText = text2.length;
 
-// Preprocess the texts
-let processedText1 = preprocessText(text1);
-let processedText2 = preprocessText(text2);
+  // Preprocess the texts
+  let processedText1 = preprocessText(text1);
+  let processedText2 = preprocessText(text2);
 
-let windowSize = text1.length < text2.length ? Math.floor(text1.length / 10) : Math.floor(text2.length / 10);
-if (windowSize < 1) {
-  windowSize = 1;
-}
-if (windowSize > 100) {
-  windowSize = 100;
-}
+  let windowSize = text1.length < text2.length ? Math.floor(text1.length / 10) : Math.floor(text2.length / 10);
+  if (windowSize < 1) {
+    windowSize = 1;
+  }
+  if (windowSize > 100) {
+    windowSize = 100;
+  }
 
-document.getElementById("windowsize").innerText = windowSize;
+  document.getElementById("windowsize").innerText = windowSize;
 
-// Create windows
-let windows1 = createWindows(processedText1, windowSize);
-let windows2 = createWindows(processedText2, windowSize);
+  // Create windows
+  let windows1 = createWindows(processedText1, windowSize);
+  let windows2 = createWindows(processedText2, windowSize);
 
-// Hash the windows
-let hashes1 = hashWindows(windows1);
-let hashes2 = hashWindows(windows2);
+  // Hash the windows
+  let hashes1 = hashWindows(windows1);
+  let hashes2 = hashWindows(windows2);
 
-// Get the fingerprints
-let fingerprints1 = getFingerprints(hashes1);
-let fingerprints2 = getFingerprints(hashes2);
+  // Get the fingerprints
+  let fingerprints1 = getFingerprints(hashes1);
+  let fingerprints2 = getFingerprints(hashes2);
 
-// Detect plagiarism
-let isPlagiarized = detectPlagiarism(fingerprints1, fingerprints2);
-document.getElementById("fg").innerText = Math.floor(percentage) + "%";
+  var result = '';
+  if (windowSize >= 5) {
+    // Detect plagiarism
+    let isPlagiarized = detectPlagiarism(fingerprints1, fingerprints2);
+    document.getElementById("fg").innerText = Math.floor(percentage) + "%";
 
-// Display the result
-document.getElementById("result").innerText = isPlagiarized ? "Yes" : "No";
+    // Display the result
+    result = isPlagiarized ? "Yes" : "No";
+    if (language == 'zh') {
+      result = isPlagiarized ? "存在" : "不存在";
+    }
+    document.getElementById("result").innerText = result;
+  } else {
+    document.getElementById("fg").innerText = Math.floor(percentage) + "%";
+    result = 'More text is needed for accuracy.';
+    if (language == 'zh') {
+      result = '需要更多文本，以确定准确性。';
+    }
+    if (language == 'ja') {
+      result = 'より正確な結果を得るために、もっと多くのテキストが必要です。';
+    }
+    document.getElementById("result").innerText = result;
+  }
 }
