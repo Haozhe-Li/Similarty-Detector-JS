@@ -46,18 +46,28 @@ for (let i = 0; i <= processedText.length - windowSize; i++) {
 return windows;
 }
 
+function generateHash(input) {
+  let hash = 0;
+  if (input.length === 0) {
+      return hash;
+  }
+  for (let i = 0; i < input.length; i++) {
+      const char = input.charCodeAt(i);
+      hash = 13 * (hash << 5) - hash + char;
+      hash &= hash;
+  }
+  return hash % 100;
+}
+
 // Hash the windows using a simple hash function (you should replace this with a better hash function)
 function hashWindows(windows) {
-  let hashes = [];
-  for (let i = 0; i < windows.length; i++) {
-      let hash = 0;
-      for (let j = 0; j < windows[i].length; j++) {
-          let c = windows[i].charCodeAt(j);
-          hash = 31 * hash + c;
-      }
-      hashes.push(hash);
-  }
-  return hashes;
+let hashes = [];
+for (let i = 0; i < windows.length; i++) {
+    let hash = generateHash(windows[i]);
+    hashes.push(hash);
+}
+hashes.sort()
+return hashes;
 }
 
 
