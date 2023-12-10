@@ -146,5 +146,5 @@ document.getElementById("fg1").innerText = Array.from(fingerprints1).join(', ');
 document.getElementById("fg2").innerText = Array.from(fingerprints2).join(', ');
 
 // Display the result
-document.getElementById("result").innerText = isPlagiarized ? "√" : "X";
+document.getElementById("result").innerText = isPlagiarized ? "Yes" : "No";
 }
