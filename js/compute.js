@@ -87,12 +87,7 @@ return fingerprints;
 }
 
 let percentage = 0;
-const sensitivitySelect = document.getElementById('sensitivity');
-let sensitivity = 10;
-sensitivitySelect.addEventListener('change', function () {
-  const selectedValue = sensitivitySelect.value;
-  sensitivity = parseInt(selectedValue);
-});
+let sensitivity = 5;
 
 // Detect plagiarism by comparing the fingerprints
 function detectPlagiarism(fingerprints1, fingerprints2) {
@@ -142,8 +137,8 @@ let fingerprints2 = getFingerprints(hashes2);
 // Detect plagiarism
 let isPlagiarized = detectPlagiarism(fingerprints1, fingerprints2);
 document.getElementById("similarity").innerText = Math.floor(percentage) + "%";
-document.getElementById("fg1").innerText = Array.from(fingerprints1).join(', ');
-document.getElementById("fg2").innerText = Array.from(fingerprints2).join(', ');
+document.getElementById("fg1").innerText = 'Text 1: ' + Array.from(fingerprints1).join(', ');
+document.getElementById("fg2").innerText = 'Text 2: ' + Array.from(fingerprints2).join(', ');
 
 // Display the result
 document.getElementById("result").innerText = isPlagiarized ? "Yes" : "No";
