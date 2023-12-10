@@ -141,5 +141,21 @@ document.getElementById("fg1").innerText = 'Text 1: ' + Array.from(fingerprints1
 document.getElementById("fg2").innerText = 'Text 2: ' + Array.from(fingerprints2).join(', ');
 
 // Display the result
-document.getElementById("result").innerText = isPlagiarized ? "Yes" : "No";
+  if (windowSize < 5) {
+    const url = window.location.href;
+    if (url.includes('zh.html')) {
+      document.getElementById("result").innerText = '需要更多文字（至少100字以上）';
+    } else if (url.includes('ja.html')) {
+      document.getElementById("result").innerText = 'より多くのテキストが必要(100字以上）';
+    } else {
+      document.getElementById("result").innerText = 'More Text is needed (at least 100 words)';
+    }
+  } else {
+    const url = window.location.href;
+    if (url.includes('zh.html')) {
+      document.getElementById("result").innerText = isPlagiarized ? "是" : "否";
+    } else {
+      document.getElementById("result").innerText = isPlagiarized ? "Yes" : "No";
+    }
+  }
 }
