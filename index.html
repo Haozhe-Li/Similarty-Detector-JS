@@ -41,9 +41,9 @@
             <div class="text-center">
               <label for="sensitivity">Please choose a model: </label> 
               <select id="sensitivity">
-                <option value="0">Strict</option>
-                <option value="4" selected>Default</option>
-                <option value="10">Loose</option>
+                <option value="10">Strict</option>
+                <option value="40" selected>Default</option>
+                <option value="80">Loose</option>
               </select>
               <br><br>
               <button onclick="runPlagiarismDetection()" class="btn btn-contact" id="myButton">Detect Now</button>
@@ -62,8 +62,13 @@
                 <p id="windowsize">The window size to be used for detection.</p>
               </div>
               <div class="cont-add">
+                <h4>Fingerprints</h4>
+                <p id="fg1">Fingerprints for text 1</p>
+                <p id="fg2">Fingerprints for text 2</p>
+              </div>
+              <div class="cont-add">
                 <h4>Similarity</h4>
-                <p id="fg">Percentage of fingerprints intersection between two texts.</p>
+                <p id="similarity">Percentage of fingerprints intersection between two texts.</p>
               </div>
               <a href="index.html" id="myLink">Start Over</a>
               

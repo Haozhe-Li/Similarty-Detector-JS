@@ -40,9 +40,9 @@
             <div class="text-center">
               <label for="sensitivity">モデルを選択してください：</label>
               <select id="sensitivity">
-                <option value="0">Strict</option>
-                <option value="4" selected>Default</option>
-                <option value="10">Loose</option>
+                <option value="10">Strict</option>
+                <option value="40" selected>Default</option>
+                <option value="80">Loose</option>
               </select>
               <br><br>
               <button onclick="runPlagiarismDetection()" class="btn btn-contact" id="myButton">Detect Now</button>
@@ -62,7 +62,7 @@
               </div>
               <div class="cont-add">
                 <h4>類似性</h4>
-                <p id="fg">2つのテキストの指紋の交差率</p>
+                <p id="similarity">2つのテキストの指紋の交差率</p>
               </div>
               <a href="ja.html" id="myLink">Start Over</a>
             </div>

@@ -40,9 +40,9 @@
             <div class="text-center">
               <label for="sensitivity">请选择模型：</label>
               <select id="sensitivity">
-                <option value="0">严格</option>
-                <option value="4" selected>默认</option>
-                <option value="10">宽松</option>
+                <option value="10">严格</option>
+                <option value="40" selected>默认</option>
+                <option value="80">宽松</option>
               </select>
               <br><br>
               <button onclick="runPlagiarismDetection()" class="btn btn-contact" id="myButton">开始检测</button>
@@ -62,7 +62,7 @@
               </div>
               <div class="cont-add">
                 <h4>相似性</h4>
-                <p id="fg">两段文本的指纹交集百分比</p>
+                <p id="similarity">两段文本的指纹交集百分比</p>
               </div>
               <a href="zh.html" id="myLink">重新开始</a>
             </div>

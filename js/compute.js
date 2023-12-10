@@ -66,15 +66,21 @@ for (let i = 0; i < windows.length; i++) {
     let hash = generateHash(windows[i]);
     hashes.push(hash);
 }
-return hashes;
+return hashes.sort();
 }
 
 
 // Get the fingerprints from the hashes
 function getFingerprints(hashes) {
 let fingerprints = new Set();
-for (let i = 0; i < hashes.length; i++) {
-fingerprints.add(hashes[i]);
+if (hashes.length < 10 ) {
+  for (let i = 0; i < hashes.length; i++) {
+    fingerprints.add(hashes[i]);
+    }
+} else {
+  for (let i = 0; i < 9; i++) {
+    fingerprints.add(hashes[i]);
+    }
 }
 return fingerprints;
 }
@@ -134,7 +140,9 @@ let fingerprints2 = getFingerprints(hashes2);
 
 // Detect plagiarism
 let isPlagiarized = detectPlagiarism(fingerprints1, fingerprints2);
-document.getElementById("fg").innerText = Math.floor(percentage) + "%";
+document.getElementById("similarity").innerText = Math.floor(percentage) + "%";
+document.getElementById("fg1").innerText = Array.from(fingerprints1).join(', ');
+document.getElementById("fg2").innerText = Array.from(fingerprints2).join(', ');
 
 // Display the result
 document.getElementById("result").innerText = isPlagiarized ? "Yes" : "No";
