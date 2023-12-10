@@ -88,7 +88,7 @@ return fingerprints;
 
 let percentage = 0;
 const sensitivitySelect = document.getElementById('sensitivity');
-let sensitivity = 4;
+let sensitivity = 10;
 sensitivitySelect.addEventListener('change', function () {
   const selectedValue = sensitivitySelect.value;
   sensitivity = parseInt(selectedValue);
