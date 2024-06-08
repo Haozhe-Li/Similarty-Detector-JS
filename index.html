@@ -12,9 +12,7 @@
   <!-- CSS -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/select.css">
-  <!-- Favicons -->
-  <link href="img/favicon.png" rel="icon">
-  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
 
   <!-- Dark Mode Code -->
   <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
@@ -35,16 +33,12 @@
           <div class="contacts12-main">
             <h3 class="title-main-cont">Similarity Detector</h3>
             <p class="sub-title-cont">This is a simple Text Similarity Detector that based on the <a href="https://dl.acm.org/doi/10.1145/872757.872770">WINNOWING Algorithm</a>. The detection gets results by comparing the fingerprints of the text using javascript on the front-end, so website does not store any records or data. Feel free to play with it! </p>
-            <label>Please select your language: </label>
-            <select onchange="changeLanguage(this)">
-              <option value="index.html" selected>English</option>
-              <option value="zh.html">中文</option>
-              <option value="ja.html">日本語</option>
-            </select>
-            <textarea id="text1" rows="10" cols="200" placeholder="Enter your first text here, currently only English is supported"></textarea>
-            <textarea id="text2" rows="10" cols="200" placeholder="Enter your second text here, currently only English is supported"></textarea>
-
+            <p class="sub-title-cont">Don't know what to input? Try <a href="#" onclick="inputDemoText()">Random Text</a></p>
+            <textarea id="text1" rows="10" cols="200" placeholder="Enter your first text here, currently only English is supported" required></textarea>
+            <textarea id="text2" rows="10" cols="200" placeholder="Enter your second text here, currently only English is supported" required></textarea>
             <div class="text-center">
+              <input type="checkbox" id="privacy" name="privacy" value="privacy" required>I have read and agree the <a href="https://haozhe.li/privacy.html" target="_blank">privacy policy</a>
+              <p><br></p>
               <button onclick="runPlagiarismDetection()" class="btn btn-contact" id="myButton">Detect Now</button>
             </div>
           </div>
@@ -75,7 +69,7 @@
             </div>
           </div>
           <!-- //contact address -->
-          <p>&copy 2023 <a href="https://www.haozheli.com" target="_blank">Haozhe Li</a>. All rights reserved</p>
+          <p>&copy 2023 <a href="https://haozhe.li" target="_blank">Haozhe Li</a>. All rights reserved</p>
         </div>
       </div>
       <!-- map -->
@@ -92,9 +86,6 @@
         if (confirmed) {
             window.location.href = myLink.getAttribute('href');
         }
-    });
-      myButton.addEventListener('click', function () {
-        alert("Test results have been generated.");
     });
   </script>
 </body>

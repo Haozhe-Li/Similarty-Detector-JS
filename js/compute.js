@@ -74,12 +74,12 @@ return hashes;
 // Get the fingerprints from the hashes
 function getFingerprints(hashes) {
 let fingerprints = new Set();
-if (hashes.length < 10 ) {
+if (hashes.length < 100 ) {
   for (let i = 0; i < hashes.length; i++) {
     fingerprints.add(hashes[i]);
     }
 } else {
-  for (let i = 0; i < 9; i++) {
+  for (let i = 0; i < 99; i++) {
     fingerprints.add(hashes[i]);
     }
 }
@@ -102,6 +102,12 @@ return percentage > sensitivity;
 
 
 function runPlagiarismDetection() {
+let privacy = document.getElementById("privacy");
+// if did not check privacy, return
+if (!privacy.checked) {
+  alert("Please check the box to confirm that you have read the privacy policy.");
+  return;
+}
 // Get the input text from the textboxes
 let text1 = document.getElementById("text1").value;
 let text2 = document.getElementById("text2").value;
@@ -136,26 +142,15 @@ let fingerprints2 = getFingerprints(hashes2);
 
 // Detect plagiarism
 let isPlagiarized = detectPlagiarism(fingerprints1, fingerprints2);
+alert("Detection completed!");
 document.getElementById("similarity").innerText = Math.floor(percentage) + "%";
 document.getElementById("fg1").innerText = 'Text 1: ' + Array.from(fingerprints1).join(', ');
 document.getElementById("fg2").innerText = 'Text 2: ' + Array.from(fingerprints2).join(', ');
 
 // Display the result
   if (windowSize < 5) {
-    const url = window.location.href;
-    if (url.includes('zh.html')) {
-      document.getElementById("result").innerText = '需要更多文字（至少100字以上）';
-    } else if (url.includes('ja.html')) {
-      document.getElementById("result").innerText = 'より多くのテキストが必要(100字以上）';
-    } else {
-      document.getElementById("result").innerText = 'More Text is needed (at least 100 words)';
-    }
+    document.getElementById("result").innerText = 'More Text is needed (at least 100 words)';
   } else {
-    const url = window.location.href;
-    if (url.includes('zh.html')) {
-      document.getElementById("result").innerText = isPlagiarized ? "是" : "否";
-    } else {
-      document.getElementById("result").innerText = isPlagiarized ? "Yes" : "No";
-    }
+    document.getElementById("result").innerText = isPlagiarized ? "Yes" : "No";
   }
 }
